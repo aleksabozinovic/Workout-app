@@ -1,0 +1,371 @@
+:root {
+  --color-brand--1: #ffb545;
+  --color-brand--2: #00c46a;
+  --color-dark--1: #2d3439;
+  --color-dark--2: #42484d;
+  --color-light--1: #aaa;
+  --color-light--2: #ececec;
+  --color-light--3: rgb(214, 222, 224);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+i {
+  pointer-events: none;
+}
+html {
+  font-size: 65%;
+}
+body {
+  font-family: "Manrope", sans-serif;
+  color: var(--color-light--2);
+  font-weight: 400;
+  line-height: 1.6;
+  height: 100vh;
+  overscroll-behavior-y: none;
+
+  background-color: #fff;
+
+  display: flex;
+}
+.sidebar {
+  transition: all 0.5s ease;
+  width: 0;
+  background: var(--color-dark--1);
+  padding: 0rem;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar.active {
+  position: relative;
+  width: 40%;
+  height: 100vh;
+  padding: 3rem 5rem 4rem 5rem;
+}
+.burger {
+  position: absolute;
+  top: 2%;
+  right: 1%;
+  cursor: pointer;
+  z-index: 2;
+  height: 3rem;
+  /* transform: translateY(1px); */
+}
+.burger.active {
+  right: 8%;
+}
+.line1,
+.line2 {
+  width: 50px;
+  height: 3px;
+  background: #000;
+  transition: all 0.5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.line1 {
+  margin-bottom: 0.8rem;
+}
+.line2 {
+  margin-top: 0.8rem;
+}
+.line1.active {
+  transform: translate(0, 20px) rotate(45deg);
+  background: #fff;
+}
+.line2.active {
+  transform: translate(0, 9px) rotate(-45deg);
+  background: #fff;
+}
+
+#map {
+  position: relative;
+  width: 95%;
+  height: 100vh;
+}
+#map.active {
+  width: 70%;
+}
+
+.locations {
+  list-style: none;
+  height: 77vh;
+  margin-top: 6rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.locations::-webkit-scrollbar {
+  width: 0;
+}
+
+.workout {
+  background-color: var(--color-dark--2);
+  border-radius: 5px;
+  padding: 1.5rem 2.25rem;
+  margin-bottom: 3rem;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: relative;
+}
+.workout--running {
+  border-left: 5px solid var(--color-brand--2);
+}
+.workout--cycling {
+  border-left: 5px solid var(--color-brand--1);
+}
+
+.workout__title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  grid-column: 1 / -2;
+  margin-bottom: 1rem;
+}
+
+.workout__details {
+  display: flex;
+  align-items: baseline;
+}
+
+.workout__icon {
+  font-size: 1.8rem;
+  margin-right: 0.2rem;
+  height: 0.28rem;
+}
+
+.workout__value {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.workout__unit {
+  font-size: 1.1rem;
+  color: var(--color-light--1);
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.form {
+  background-color: var(--color-dark--2);
+  border-radius: 5px;
+  padding: 1.5rem 3rem;
+  margin-bottom: 3rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 2.5rem;
+
+  /* Match height and activity boxes */
+  height: 9.25rem;
+  transition: all 0.5s, transform 1ms;
+}
+
+.form.hidden {
+  transform: translateY(-30rem);
+  height: 0;
+  padding: 0 2.25rem;
+  margin-bottom: 0;
+  opacity: 0;
+}
+
+.form__row {
+  display: flex;
+  align-items: center;
+}
+
+.form__row--hidden {
+  display: none;
+}
+
+.form__label {
+  flex: 0 0 50%;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.form__input,
+.popup input {
+  width: 100%;
+  padding: 0.3rem 1.1rem;
+  font-family: inherit;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 3px;
+  background-color: var(--color-light--3);
+  transition: all 0.2s;
+}
+
+.form__input:focus,
+.popup input:focus {
+  outline: none;
+  background-color: #fff;
+}
+
+.form__btn {
+  display: none;
+}
+.leaflet-popup .leaflet-popup-content-wrapper {
+  background-color: var(--color-dark--1);
+  color: var(--color-light--2);
+  border-radius: 5px;
+  padding-right: 0.6rem;
+}
+
+.leaflet-popup .leaflet-popup-content {
+  font-size: 1.5rem;
+}
+
+.leaflet-popup .leaflet-popup-tip {
+  background-color: var(--color-dark--1);
+}
+
+.running-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--2);
+}
+.cycling-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--1);
+}
+
+.workout__delete {
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 6rem;
+  margin-bottom: 1rem;
+  z-index: 10;
+}
+.workout__delete i {
+  color: #fff;
+}
+.workout__edit {
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  position: absolute;
+  right: 15%;
+  top: 1.6rem;
+}
+
+.workout__edit {
+  color: #fff;
+}
+
+.form__edit {
+  border-radius: 5px;
+  padding: 1.5rem 3rem;
+  margin-bottom: 3rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 2.5rem;
+
+  /* Match height and activity boxes */
+  height: 9.25rem;
+  transition: all 0.5s, transform 1ms;
+}
+.workout.edit {
+  height: 9.25rem;
+  grid-template-columns: 1fr;
+  padding: 0;
+  padding-bottom: 11rem;
+}
+.done__button,
+.popup button {
+  position: relative;
+  left: 85%;
+  top: 0.4rem;
+  height: 2.5rem;
+  width: 8rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--color-light--2);
+  font-size: 1.6rem;
+  font-weight: 600;
+  border: 2px solid var(--color-light--2);
+  cursor: pointer;
+}
+
+.delete__all {
+  cursor: pointer;
+  width: auto;
+  position: relative;
+  font-size: 1.5rem;
+  top: 9%;
+  width: 18%;
+}
+
+.popups {
+  z-index: 10000;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  height: 20vh;
+}
+.delete__all--popup {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-dark--1);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: -1;
+}
+.popup__div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 2rem;
+}
+.x {
+  left: 109.5%;
+  position: absolute;
+  bottom: 30%;
+  cursor: pointer;
+  font-size: 2.5rem;
+}
+.popup input {
+  width: 50%;
+  font-size: 1.8rem;
+  position: relative;
+  top: 1.5rem;
+}
+.popup button {
+  position: relative;
+  left: 0%;
+  top: 4rem;
+}
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+}
+.delete__all--popup {
+  opacity: 1;
+  z-index: 1000;
+}
+.popups.hidden {
+  z-index: -1;
+}
+.delete__all--popup.hidden {
+  opacity: 0;
+}
+.overlay.hidden {
+  z-index: -1;
+  opacity: 0;
+}
